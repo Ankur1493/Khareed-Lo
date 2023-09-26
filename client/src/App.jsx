@@ -1,7 +1,16 @@
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import HomeScreen from "./pages/HomeScreen"
+import Navbar from "./components/Navbar"
+import ProductScreen from "./pages/ProductScreen";
+
 export default function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <Router>
+      <Navbar/>
+      <Routes>
+        <Route element = {<HomeScreen/>} path = "/"/>
+        <Route element = {<ProductScreen/>} path = "product/:id"/>
+      </Routes>
+    </Router>
   )
 }
