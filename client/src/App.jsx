@@ -9,7 +9,7 @@ export default function App() {
       <Navbar/>
       <Routes>
         <Route element = {<HomeScreen/>} path = "/"/>
-        <Route element = {<ProductScreen/>} path = "product/:id"/>
+        <Route element = {<ProductScreen/>} path = "products/:id"/>
       </Routes>
     </Router>
   )
