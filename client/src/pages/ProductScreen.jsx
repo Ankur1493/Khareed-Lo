@@ -1,6 +1,8 @@
 import React from 'react'
 import { useGetProductDetailsQuery } from '../slices/productSlice'
 import { useParams } from 'react-router'
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 const ProductScreen = () => {
 
@@ -14,9 +16,15 @@ const ProductScreen = () => {
     <div>
       {
         isLoading ? 
-       ( <h2>Loading</h2>):
+       (<div className='flex justify-center items-center h-screen w-[98vw]'>
+          <Loader/>
+       </div> ):
         error?
-       ( <h2>error</h2>):
+       (
+        <div className='flex justify-center items-center h-screen w-[98vw]'>
+          <Message error={error}/>
+        </div> 
+       ):
         (
           <div className='flex  mt-5'>
            <div className='w-2/5 h-[84vh] ml-4'>
