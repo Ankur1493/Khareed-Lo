@@ -3,14 +3,24 @@ import { useGetProductDetailsQuery } from '../slices/productSlice'
 import { useParams } from 'react-router'
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../slices/cartSlice';
 
 const ProductScreen = () => {
+
+  const dispatch = useDispatch();
 
   const {id: product_id} = useParams();
 
   const {data,isLoading,error} = useGetProductDetailsQuery(product_id)
 
   const product = data?.product; 
+
+  const handleAddToCart = ()=>{
+    console.log(product);
+    dispatch(addToCart({...product}))
+
+  }
 
   return (
     <div>
@@ -41,7 +51,7 @@ const ProductScreen = () => {
               <div>{product?.description}</div>
             </div>
            <div className='mt-8'>
-            <button className ="py-2 px-4 w-[450px] text-[22px] bg-transparent text-red-600 font-semibold border border-gray-800 rounded-2xl hover:bg-gray-800 hover:text-white hover:border-transparent transition ease-in duration-200 transform hover:-translate-y-1 active:translate-y-0">
+            <button onClick={handleAddToCart} className ="py-2 px-4 w-[450px] text-[22px] bg-transparent text-red-600 font-semibold border border-gray-800 rounded-2xl hover:bg-gray-800 hover:text-white hover:border-transparent transition ease-in duration-200 transform hover:-translate-y-1 active:translate-y-0">
               Add to Cart
             </button>
            </div>
