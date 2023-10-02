@@ -17,9 +17,7 @@ const ProductScreen = () => {
   const product = data?.product; 
 
   const handleAddToCart = ()=>{
-    console.log(product);
     dispatch(addToCart({...product}))
-
   }
 
   return (

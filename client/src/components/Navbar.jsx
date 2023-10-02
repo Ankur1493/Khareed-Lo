@@ -1,14 +1,23 @@
 import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
-
+import { useSelector } from 'react-redux';
+import CartScreen from '../pages/CartScreen';
+import { Link } from 'react-router-dom';
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Example() {
-  // Add state for the search query
   const [searchQuery, setSearchQuery] = useState('');
+  const [isCartOpen, setIsCartOpen] = useState(false); // Add state for cart visibility
+
+
+  const {cartItems} = useSelector(state => state.cart)
+  
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -36,10 +45,12 @@ export default function Example() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <div className='text-gray-400 text-xs'>{cartItems.length}</div>
                 <button
+                  onClick={toggleCart}
                   type="button"
-                  className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
+                  className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none"
+                  >
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
                   <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
@@ -95,6 +106,7 @@ export default function Example() {
               </div>
             </div>
           </div>
+          {isCartOpen && <CartScreen status={true} />}
         </>
       )}
     </Disclosure>
