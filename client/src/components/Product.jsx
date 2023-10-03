@@ -4,7 +4,7 @@ import useTruncateDescription from '../utils/truncateDescription'
 
 const Product = ({product}) => {
 
-  const truncatedDescription = useTruncateDescription(product?.description, 10);
+  const truncatedDescription = useTruncateDescription(product?.description, 50);
 
   return (
     <div className='w-[250px] h-72 rounded-lg bg-gray-800'>

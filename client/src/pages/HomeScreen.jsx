@@ -18,7 +18,7 @@ const HomeScreen = () => {
           <Message error={error}/>
         </div>
       ) : (
-        <div className='home items-center justify-center justify-items-center grid grid-cols-4 w-[98vw] h-screen'>
+        <div className='home items-center justify-center justify-items-center grid grid-cols-4 gap-y-16 w-[98vw] h-screen mb-16'>
 
         {data.products.map((product) => (
           <div key={product._id}>

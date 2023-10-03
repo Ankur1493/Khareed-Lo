@@ -3,11 +3,14 @@ import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeFromCart } from '../slices/cartSlice'
+import { Link } from 'react-router-dom'
 
 
 const CartScreen = () => {
 
-  const products = useSelector(state=> state.cart.cartItems)
+  const cart = useSelector(state=> state.cart);
+  const products = cart.cartItems
+
   const [open, setOpen] = useState(true)
 
   const dispatch = useDispatch();
@@ -70,13 +73,15 @@ const CartScreen = () => {
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
                             {products.map((product) => (
                               <li key={product._id} className="flex py-6">
-                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                  <img
-                                    src={product.image}
-                                    alt={product.name}
-                                    className="h-full w-full object-cover object-center"
-                                  />
-                                </div>
+                                <Link to={`/products/${product._id}`}>
+                                  <div onClick={()=> setOpen(false)} className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                    <img
+                                      src={product.image}
+                                      alt={product.name}
+                                      className="h-full w-full object-cover object-center"
+                                      />
+                                  </div>
+                                </Link>
 
                                 <div className="ml-4 flex flex-1 flex-col">
                                   <div>
@@ -89,8 +94,7 @@ const CartScreen = () => {
                                     <p className="mt-1 text-sm text-gray-500">{product.color}</p>
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm">
-                                    {/* <p className="text-gray-500">Qty {product.quantity}</p> */}
-
+                                    <p className="text-gray-800 text-[18px] font-semiBold">Qty {product.qty}</p>
                                     <div className="flex">
                                       <button
                                         onClick={()=> adjustRemoveFromCart(product)}
@@ -113,7 +117,7 @@ const CartScreen = () => {
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>$262.00</p>
+                        <p>Rs {cart.totalPrice}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                       <div className="mt-6">

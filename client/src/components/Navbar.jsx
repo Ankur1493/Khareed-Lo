@@ -10,10 +10,15 @@ function classNames(...classes) {
 
 export default function Example() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [isCartOpen, setIsCartOpen] = useState(false); // Add state for cart visibility
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
 
   const {cartItems} = useSelector(state => state.cart)
+  
+  const totalCartItems = cartItems.length > 0 ? cartItems.reduce((acc, item) => {
+    return acc + item.qty;
+  }, 0) : 0;
+  
   
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
@@ -45,7 +50,7 @@ export default function Example() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <div className='text-gray-400 text-xs'>{cartItems.length}</div>
+                <div className='text-gray-400 text-xs'>{totalCartItems}</div>
                 <button
                   onClick={toggleCart}
                   type="button"
@@ -105,8 +110,8 @@ export default function Example() {
                 </Menu>
               </div>
             </div>
-          </div>
           {isCartOpen && <CartScreen status={true} />}
+          </div>
         </>
       )}
     </Disclosure>
