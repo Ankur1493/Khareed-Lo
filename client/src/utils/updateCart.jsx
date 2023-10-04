@@ -8,5 +8,7 @@ export const updateCart = (state) => {
       return acc + item.price * item.qty;
     }, 0);
     state.totalPrice= addDecimals(totalPrice);
+
+    localStorage.setItem("cart", JSON.stringify(state));
   };
 

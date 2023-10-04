@@ -8,7 +8,7 @@ router.get("/", getAllUser);
 //register and auth
 router.post("/", createNewUser);
 router.post("/login", userLogin);
-router.get("/logout", userLogout);
+router.post("/logout", userLogout);
 
 router.get("/profile",getUserProfile);
 router.patch("/profile",updateUserProfile);

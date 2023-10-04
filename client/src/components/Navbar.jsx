@@ -3,14 +3,36 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useSelector } from 'react-redux';
 import CartScreen from '../pages/CartScreen';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../slices/authSlice';
+import { useLogoutMutation } from '../slices/userApiSlices';
+import { useNavigate } from 'react-router';
+import { resetCart } from '../slices/cartSlice';
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const dispatch = useDispatch();
+  const [logoutApiCall] = useLogoutMutation();
+  const navigate = useNavigate();
+
+  const handleLogout = async ()=>{
+    try{
+
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      dispatch(resetCart());
+      
+      navigate("/login")
+    }catch(err){
+      console.log(err);
+    }
+  }
 
 
   const {cartItems} = useSelector(state => state.cart)
@@ -96,15 +118,14 @@ export default function Example() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          <button
+                          onClick={handleLogout}
+                            className={classNames(active ? 'bg-gray-100' : '', 'text-left w-[100%] h-[100%] block px-4 py-2 text-sm text-gray-700')}
                           >
                             Log Out
-                          </a>
+                          </button>
                         )}
                       </Menu.Item>
-                      {/* Add more profile dropdown items here */}
                     </Menu.Items>
                   </Transition>
                 </Menu>
