@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import useTruncateDescription from '../utils/truncateDescription'
+import useTruncateDescription from '../../hooks/useTruncateDescription';
 
 const Product = ({product}) => {
 

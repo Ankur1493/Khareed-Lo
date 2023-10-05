@@ -6,6 +6,7 @@ import RegisterScreen from "./pages/RegisterScreen";
 import LoginScreen from "./pages/LoginScreen";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import ProfileScreen from "./pages/ProfileScreen";
 
 
 export default function App() {
@@ -15,7 +16,8 @@ export default function App() {
       <Navbar/>
       <Routes>
         <Route element = {<HomeScreen/>} path = "/"/>
-        <Route element = {<ProductScreen/>} path = "products/:id"/>
+        <Route element = {<ProductScreen/>} path = "/products/:id"/>
+        <Route element = {<ProfileScreen/>} path = "/profile"/>
 
         <Route element = {<RegisterScreen/>} path="/register"/>
         <Route element = {<LoginScreen/>} path="/login"/>
