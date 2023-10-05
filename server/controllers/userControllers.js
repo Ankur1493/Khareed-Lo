@@ -117,9 +117,54 @@ export const getAllUser = async(req,res)=>{
 
 export const getUserProfile = async(req,res)=>{
 
+    try{
+        const userId = req.user._id;
+        const userProfile = await User.findById(userId).select("-password");
+
+        if(!userProfile){
+            throw new Error("No user found incorrect id")
+        }
+        return res.status(200).json({
+            name: userProfile.name,
+            email: userProfile.email,
+            isAdmin: userProfile.isAdmin,
+        })
+    }catch(err){
+        return res.status(400).json({
+            err: err.message
+        })
+    }
 
 }
 export const updateUserProfile = async(req,res)=>{
 
+    const{name,email,password} = req.body;
 
+    try{
+        const userId = req.user._id;
+
+        const user = await User.findById(userId);        
+
+        if(!user) throw new Error("user not found");
+
+        user.name = name || user.name;
+        user.email = email || user.email;
+
+        if(password){
+            user.password = password;
+        }
+
+        const updatedUser = await user.save();
+    
+        return res.status(200).json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin,
+        })
+    }catch(err){
+        return res.status(400).json({
+            err: err.message
+        })
+    }
 }

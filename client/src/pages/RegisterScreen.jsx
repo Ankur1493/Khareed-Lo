@@ -4,6 +4,7 @@ import {useRegisterMutation} from "../slices/userApiSlices";
 import {saveCredentials} from "../slices/authSlice";
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import {toast} from "react-toastify";
 
 
 const RegisterScreen = () => {

@@ -28,7 +28,7 @@ const cartSlice = createSlice({
             state.cartItems = state.cartItems.filter((cartItem)=> cartItem._id !== item._id)
             updateCart(state);
         },
-        resetCart: (state) => (state = initialState)
+        resetCart: (state) => (state = {cartItems: []} )
 
     }
 })
