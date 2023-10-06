@@ -8,7 +8,7 @@ import { logout } from '../slices/authSlice';
 import { useLogoutMutation } from '../slices/userApiSlices';
 import { useNavigate } from 'react-router';
 import { resetCart } from '../slices/cartSlice';
-import useUserStatus from '../../hooks/useUserStatus';
+import useUserStatus from '../hooks/useUserStatus';
 import { Link } from 'react-router-dom';
 
 function classNames(...classes) {

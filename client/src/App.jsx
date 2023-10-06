@@ -4,9 +4,11 @@ import Navbar from "./components/Navbar"
 import ProductScreen from "./pages/ProductScreen";
 import RegisterScreen from "./pages/RegisterScreen";
 import LoginScreen from "./pages/LoginScreen";
+import ProfileScreen from "./pages/ProfileScreen";
+import ShippingScreen from "./pages/ShippingScreen";
+import PaymentScreen from "./pages/PaymentScreen";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import ProfileScreen from "./pages/ProfileScreen";
 
 
 export default function App() {
@@ -21,6 +23,10 @@ export default function App() {
 
         <Route element = {<RegisterScreen/>} path="/register"/>
         <Route element = {<LoginScreen/>} path="/login"/>
+
+        <Route element = {<ShippingScreen/>} path="/shipping"/>
+        <Route element = {<PaymentScreen/>} path="/payment"/>
+
       </Routes>
     </Router>
   )
