@@ -27,7 +27,7 @@ const ProductScreen = () => {
   }
 
   return (
-    <div>
+    <div className='py-16'>
       {
         isLoading ? 
        (<div className='flex justify-center items-center h-screen w-[98vw]'>
@@ -41,7 +41,7 @@ const ProductScreen = () => {
        ):
         (
           <div className='flex  mt-5'>
-           <div className='w-2/5 h-[84vh] ml-4'>
+           <div className='w-2/5 h-[74vh] ml-4'>
             <img src={product?.image} alt="Product Image" className='h-full rounded-[10px]'/>
            </div>
            <div className='w-2/4 ml-16 mt-4'>

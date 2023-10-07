@@ -20,8 +20,10 @@ const ShippingScreen = () => {
     useEffect(()=>{
         if(!userStatus){
             navigate('/login')
+        }else if(cart.cartItems.length === 0){
+            navigate("/")
         }
-    })
+    },[])
 
     const handleSubmit = (e)=>{
         e.preventDefault();
@@ -31,7 +33,7 @@ const ShippingScreen = () => {
 
   return (
 
-    <div className='h-[75vh] m-auto my-12 border w-72 flex flex-col'>
+    <div className='h-[75vh] m-auto  border w-72 flex flex-col py-32'>
 
         <div className="shipping">
             Enter following details

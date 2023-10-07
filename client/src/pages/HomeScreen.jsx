@@ -8,7 +8,7 @@ const HomeScreen = () => {
   const { data, isLoading, error } = useGetProductsQuery();
 
   return (
-    <div>
+    <div className='py-16'>
       {isLoading ? (
         <div className='flex justify-center items-center h-screen w-[98vw]'>
           <Loader/>

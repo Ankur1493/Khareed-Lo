@@ -22,7 +22,7 @@ const CartScreen = () => {
   const productStatus = products.length > 0 ? true: false ;
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={open} as={Fragment} >
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
         <Transition.Child
           as={Fragment}
@@ -48,7 +48,7 @@ const CartScreen = () => {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
+                <Dialog.Panel className="pointer-events-auto w-screen max-w-md z-40">
                   <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                     <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                       <div className="flex items-start justify-between">
@@ -120,7 +120,7 @@ const CartScreen = () => {
                         <p>Rs {cart.totalPrice}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
-                      <div className="mt-6">
+                     { productStatus &&  <div className="mt-6">
                         <Link
                           to="/shipping"
                           onClick={() => setOpen(false)}
@@ -128,7 +128,7 @@ const CartScreen = () => {
                         >
                           Checkout
                         </Link>
-                      </div>
+                      </div>}
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>
                           or
