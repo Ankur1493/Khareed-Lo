@@ -4,6 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import { productRouter } from "./routes/productRoutes.js";
 import  {userRouter}  from "./routes/userRoutes.js";
+import  {orderRouter}  from "./routes/orderRoutes.js";
 import cookieParser from "cookie-parser";
 
 dotenv.config();
@@ -14,6 +15,7 @@ app.use(cookieParser());
 
 app.use("/api/products",productRouter);
 app.use("/api/users",userRouter);
+app.use("/api/orders",orderRouter);
 
 
 mongoose.connect(process.env.URI)

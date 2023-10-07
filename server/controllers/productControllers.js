@@ -24,7 +24,6 @@ export const getProducts = async (req, res) => {
   
   export const createProduct = async (req, res) => {
     const { name, brand, category, description, price } = req.body;
-    //as of now there is no user
     try {
       if (req.file) {
         cloudinary.uploader.upload(req.file.path, async (err, result) => {

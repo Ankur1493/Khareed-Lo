@@ -16,8 +16,20 @@ export const authenticate = async (req, res, next) => {
     req.user = await User.findById(decoded.userId).select("-password");
     next();
   } catch (err) {
-    console.error(err);
-    res.status(401);
-    return next(new Error("not authorized"));
+    return res.status(400).json({
+      error: "not authorized"
+  })
   }
 };
+
+export const admin = (req,res,next)=>{
+
+  if(req.user && req.user.isAdmin){
+    next()
+  }else{
+    return res.status(401).json({
+      error: "you can't access this page/ only for admins"
+    }) 
+  }
+
+}

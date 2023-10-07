@@ -1,17 +1,18 @@
 import express from "express";
 import { getProducts, getProductById, createProduct, deleteProduct,updateProduct } from "../controllers/productControllers.js";
 import upload from "../middlewares/multer.js"
+import { admin, authenticate } from "../middlewares/authenticate.js";
 
 const router = express.Router();
 
 router.route("/")
     .get(getProducts)
-    .post(upload.single("image"),createProduct)
+    .post(authenticate, admin, upload.single("image"),createProduct)
 
 router.route("/:id")
     .get(getProductById)
-    .delete(deleteProduct)
-    .patch(updateProduct)
+    .delete(authenticate,admin,deleteProduct)
+    .patch(authenticate,admin, updateProduct)
 
 
 export {router as productRouter}
