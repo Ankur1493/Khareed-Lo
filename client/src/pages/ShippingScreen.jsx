@@ -3,24 +3,23 @@ import useUserStatus from '../hooks/useUserStatus'
 import { useNavigate } from 'react-router';
 import { useDispatch,useSelector } from 'react-redux';
 import { saveShippingAddress } from '../slices/cartSlice';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 const ShippingScreen = () => {
 
-    const userStatus = useUserStatus();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const cart = useSelector(state=> state.cart)
     const {shippingAddress} = cart
 
-    const [address,setAddress] = useState(shippingAddress.address  || "" )
-    const [city,setCity] = useState(shippingAddress.city  || "" )
-    const [postalCode,setPostalCode] = useState(shippingAddress.postalCode  || "" )
-    const [country,setCountry] = useState(shippingAddress.country  || "" )
+    const [address,setAddress] = useState(shippingAddress?.address  || "" )
+    const [city,setCity] = useState(shippingAddress?.city  || "" )
+    const [postalCode,setPostalCode] = useState(shippingAddress?.postalCode  || "" )
+    const [country,setCountry] = useState(shippingAddress?.country  || "" )
 
     useEffect(()=>{
-        if(!userStatus){
-            navigate('/login')
-        }else if(cart.cartItems.length === 0){
+    
+        if(cart.cartItems.length === 0){
             navigate("/")
         }
     },[])
@@ -33,7 +32,10 @@ const ShippingScreen = () => {
 
   return (
 
-    <div className='h-[75vh] m-auto  border w-72 flex flex-col py-32'>
+    <div className='py-32'>
+        <CheckoutSteps step1 step2/>
+
+    <div className='h-[75vh] m-auto  border w-72 flex flex-col my-12'>
 
         <div className="shipping">
             Enter following details
@@ -55,6 +57,7 @@ const ShippingScreen = () => {
             <button className='border-[2px] border-gray-800' onClick={e=> handleSubmit(e)}>Select payment method</button>
         </div>
 
+    </div>
     </div>
   )
 }

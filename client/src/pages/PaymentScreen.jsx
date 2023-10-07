@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router'
+import CheckoutSteps from '../components/CheckoutSteps';
 
 const PaymentScreen = () => {
 
@@ -24,6 +25,9 @@ const PaymentScreen = () => {
 
   return (
     <div className='h-[80vh] w-screen flex flex-col items-center justify-center'>
+      <div className='pb-36'>
+        <CheckoutSteps step1 step2 step3/>
+      </div>
       <div>
         PaymentScreen
       </div>

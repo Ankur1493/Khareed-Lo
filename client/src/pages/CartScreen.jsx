@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeFromCart } from '../slices/cartSlice'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 const CartScreen = () => {
@@ -14,9 +14,16 @@ const CartScreen = () => {
   const [open, setOpen] = useState(true)
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const adjustRemoveFromCart = (product)=>{
     dispatch(removeFromCart(product))
+  }
+
+
+  const handleCheckOut = ()=>{
+    setOpen(false)
+    navigate("/login?redirect=/shipping");
   }
 
   const productStatus = products.length > 0 ? true: false ;
@@ -121,13 +128,13 @@ const CartScreen = () => {
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                      { productStatus &&  <div className="mt-6">
-                        <Link
+                        <div
                           to="/shipping"
-                          onClick={() => setOpen(false)}
-                          className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                          onClick={handleCheckOut}
+                          className="flex items-center cursor-pointer justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                         >
                           Checkout
-                        </Link>
+                        </div>
                       </div>}
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>

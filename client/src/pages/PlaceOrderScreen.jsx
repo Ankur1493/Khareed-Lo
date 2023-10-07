@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import { removeFromCart } from '../slices/cartSlice';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 const PlaceOrderScreen = () => {
 
@@ -26,6 +27,7 @@ const PlaceOrderScreen = () => {
         <img src="/thanks.webp" alt="" />
         </div>
         <div className="summary ml-[45vw] w-[53vw] mt-5 mb-16">
+            <CheckoutSteps step1 step2 step3 step4/>
             <div>
                 <h1 className='text-center text-3xl mb-2'>Order Summary</h1>
                 <div className="cartItems">

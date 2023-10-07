@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {useLoginMutation} from "../slices/userApiSlices";
 import {saveCredentials} from "../slices/authSlice";
-import { useNavigate } from 'react-router';
 import {toast} from "react-toastify";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const LoginScreen = () => {
 
@@ -17,12 +16,15 @@ const LoginScreen = () => {
     const [login, {isLoading}] = useLoginMutation();
     const user = useSelector((state)=> state.auth.userInfo);
     const navigate = useNavigate();
-
+    const { search } = useLocation();
+    const sp = new URLSearchParams(search);
+    const redirect = sp.get('redirect') || '/';
+    
     useEffect(()=>{
         if(user){
-            navigate("/")
+            navigate(redirect)
         }
-    },[])
+    },[navigate,redirect,user])
 
     const handleUserInfo = (e) => {
         setUserInfo((prevUserInfo) => ({
