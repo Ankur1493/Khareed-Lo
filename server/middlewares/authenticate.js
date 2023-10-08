@@ -2,12 +2,13 @@ import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 
 export const authenticate = async (req, res, next) => {
-  const token = req.cookies.jwt;
+  let token;
+  token = req.cookies.jwt;
 
   if (!token) {
     // No token present, so the user is not authenticated
     return res.status(400).json({
-        error: "not authorized please login"
+        error: "not authorized please login",
     })
   }
 

@@ -6,7 +6,10 @@ const ProfileScreen = () => {
   return (
     <div>
         <div className="name">
-            <div className="AS"></div>
+            <div className="AS">Profile</div>
+            <div className="AS">Profile</div>
+            <div className="AS">Profile</div>
+            <div className="AS">Profile</div>
         </div>
         <div className="info"></div>
         <div className="logout">

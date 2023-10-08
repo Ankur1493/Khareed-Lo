@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
-import { removeFromCart } from '../slices/cartSlice';
+import { removeFromCart, resetCart } from '../slices/cartSlice';
+import { useCreateOrderMutation} from "../slices/ordersApiSlice";
+import Message from "../components/Message"
+import Loader from "../components/Loader"
 import CheckoutSteps from '../components/CheckoutSteps';
+import {toast} from "react-toastify"
 
 const PlaceOrderScreen = () => {
 
     const cart = useSelector(state => state.cart);
-    const {cartItems,shippingAddress} = cart;
+    const {cartItems,shippingAddress, totalPrice} = cart;
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -15,11 +19,36 @@ const PlaceOrderScreen = () => {
         dispatch(removeFromCart(item))
     }
 
+    const [createOrder, {isLoading, error}] = useCreateOrderMutation();
+
+
     useEffect(()=>{
-        if(cartItems.length === 0){
-            navigate("/")
+
+
+        if(!shippingAddress){
+            navigate("/shipping")
         }
-    })
+
+    },[shippingAddress])
+
+    const placeOrderHandler =  async()=>{
+        try {
+            const res = await createOrder({
+                orderItems: cartItems,
+                shippingAddress,
+                paymentMethod: "paypal",
+                totalPrice
+            });
+            const orderId = res.data.createOrder._id; // Access the _id from the response data
+            console.log(res);
+            console.log(orderId);
+
+            dispatch(resetCart());
+            navigate(`/orders/${orderId}`);
+        } catch (err) {
+            toast.error(err?.data?.message || err.error || err?.data?.err)
+        }
+    }
 
   return (
     <div className='flex py-16'>
@@ -61,9 +90,9 @@ const PlaceOrderScreen = () => {
                 <div className='ml-8'>
                 <div className="shippingAddress text-[14px] mt-3">Shipping Address:- 
                 <span>
-                <p>{shippingAddress.address}, </p>
-                {shippingAddress.city}, 
-                {shippingAddress.postalCode}
+                <p>{shippingAddress?.address}, </p>
+                {shippingAddress?.city}, 
+                {shippingAddress?.postalCode}
                 </span>
                 </div>
                 <div className="checkout text-[20px] mt-3">
@@ -72,7 +101,12 @@ const PlaceOrderScreen = () => {
                 </div>
                 </div>
                 <div className="paymentButton mr-24 h-100 m-auto">
-                    <button className='w-52 border duration-400 text-2xl font-bold rounded border-gray-800 h-16 hover:bg-gray-800 hover:text-white'>Pay Now</button>
+                    {
+                        isLoading?( <Loader/>)
+                        :(
+                            <button className='w-52 border duration-500 text-2xl font-bold rounded-[35px] border-gray-800 h-14 hover:bg-gray-800 hover:text-white' onClick={placeOrderHandler}>Pay Now</button>
+                        )
+                    }
                 </div>
             </div>
             </div>

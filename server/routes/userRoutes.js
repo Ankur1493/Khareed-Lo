@@ -11,7 +11,7 @@ router.post("/", createNewUser);
 router.post("/login", userLogin);
 router.post("/logout", userLogout);
 
-router.get("/profile/",authenticate, getUserProfile);
+router.get("/profile",authenticate, getUserProfile);
 router.put("/profile",authenticate,updateUserProfile);
 
 

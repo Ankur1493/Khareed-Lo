@@ -9,7 +9,14 @@ import cookieParser from "cookie-parser";
 
 dotenv.config();
 const app = express();
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:5173', // Replace with the actual URL of your frontend
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Enable cookies across origins
+  };
+  
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
