@@ -12,9 +12,9 @@ router.route("/")
 router.route("/my_orders")
     .get(authenticate,getUserOrders);
 
-router.route("/:id").get(authenticate, admin, getOrderById);
-router.route("/:id/pay").get(authenticate, admin, updateOrderToPaid);
-router.route("/:id/deliver").get(authenticate, admin, updateOrderToDelivered);
+router.route("/:id").get(authenticate, getOrderById);
+router.route("/:id/pay").put(authenticate, updateOrderToPaid);
+router.route("/:id/deliver").put(authenticate, admin, updateOrderToDelivered);
 
 
 export  {router as orderRouter};

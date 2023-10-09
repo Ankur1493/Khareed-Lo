@@ -65,21 +65,40 @@ export const getOrderById = async(req,res)=>{
             throw new Error("no order found")
         }
 
-        return res.status(200).json({
-            status: "success",
-            order
-        })
+        return res.status(200).json(order)
     }catch(err){
         return res.status(400).json({
-            status: failed,
             error: err.message
         })
     }
 }
 export const updateOrderToPaid = async(req,res)=>{
-    res.status(200).json({
-        status: "success"
-    })
+
+    try{
+
+        const order = await Order.findById(req.params.id);
+
+        if(order){
+            order.isPaid = true;
+            order.paidAt = Date.now();
+            order.paymentResult = {
+              id: req.body.id,
+              status: req.body.status,
+              update_time: req.body.update_time,
+              email_address: req.body.payer.email_address,
+            };
+        }else{
+            throw new Error("No Order found")
+        }
+
+        const updatedOrder = await order.save();
+
+        res.status(200).json(updatedOrder)
+    }catch(err){
+        res.status(400).json({
+            err: err.message
+        })
+    }
 }
 export const updateOrderToDelivered = async(req,res)=>{
     res.status(200).json({

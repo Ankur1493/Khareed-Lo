@@ -28,7 +28,10 @@ const cartSlice = createSlice({
             state.cartItems = state.cartItems.filter((cartItem)=> cartItem._id !== item._id)
             updateCart(state);
         },
-        resetCart: (state) => (state = {cartItems: []} ),
+        resetCart: (state) => {
+            state = {cartItems: []} 
+            updateCart(state)
+        },
         
         saveShippingAddress: (state,action)=>{
             state.shippingAddress = action.payload;

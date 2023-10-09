@@ -23,13 +23,11 @@ const PlaceOrderScreen = () => {
 
 
     useEffect(()=>{
-
-
         if(!shippingAddress){
             navigate("/shipping")
         }
 
-    },[shippingAddress])
+    },[])
 
     const placeOrderHandler =  async()=>{
         try {
@@ -39,12 +37,13 @@ const PlaceOrderScreen = () => {
                 paymentMethod: "paypal",
                 totalPrice
             });
-            const orderId = res.data.createOrder._id; // Access the _id from the response data
+            const orderId = res.data.createOrder._id; 
             console.log(res);
             console.log(orderId);
 
             dispatch(resetCart());
             navigate(`/orders/${orderId}`);
+            console.log("navigated to order screen");
         } catch (err) {
             toast.error(err?.data?.message || err.error || err?.data?.err)
         }
